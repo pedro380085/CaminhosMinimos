@@ -217,7 +217,7 @@ void adjacentes_m(const GrafoM *grafo, int u, int *v, int max)
 #define MARCADO 1
 #define MAXN 1000
 
-#define RELEASE 0
+#define RELEASE 1
 
 int algoritmo_prim_m(const GrafoM *grafo) {
     
@@ -298,69 +298,85 @@ int algoritmo_prim_m(const GrafoM *grafo) {
 
 int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
     
-    int cost[MAXN][MAXN], distance[MAXN], pred[MAXN];
-    int visited[MAXN],count,mindistance,nextnode = MAXN,i,j;
-    /*pred[] stores the predecessor of each node
-     count gives the number of nodes seen so far*/
+    int cost[MAXN][MAXN];
+    int distance[MAXN];
+    int pred[MAXN];
+    int visited[MAXN];
+    int count;
+    int mindistance;
+    int nextnode = MAXN;
+    int i,j;
     
-    //create the cost matrix
-    for(i=0;i<grafo->n;i++)
-        for(j=0;j<grafo->n;j++)
-            if(grafo->adj[i][j]==0)
-                cost[i][j]=INFINITO;
-            else
-                cost[i][j]=grafo->adj[i][j];
-    
-    
-    //initialize
-    for(i=0;i<grafo->n;i++)
-    { distance[i]=cost[origem][i];
-        pred[i]=origem;visited[i]=0;
-    }
-    distance[origem]=0;visited[origem]=1;
-    count=1;
-    while(count<grafo->n-1)
-    { mindistance=INFINITO ;
-        // nextnode is the node at minimum distance
-        for(i=0;i<grafo->n;i++)
-            if(distance[i] < mindistance && !visited[i])
-            { mindistance=distance[i];
-                nextnode=i;
+    // Create our matrix with costs
+    for (i = 0; i < grafo->n; i++) {
+        for (j = 0; j < grafo->n; j++) {
+            if (grafo->adj[i][j] == 0) {
+                cost[i][j] = INFINITO;
+            } else {
+                cost[i][j] = grafo->adj[i][j];
             }
-        //check if a better path exist through nextnode
-        visited[nextnode]=1;
-        for(i=0;i<grafo->n;i++)
-            if(!visited[i])
-                if(mindistance+cost[nextnode][i]<distance[i])
-                { distance[i]=mindistance+cost[nextnode][i];
-                    pred[i]=nextnode;
+        }
+    }
+    
+    
+    // Initialize variables
+    for (i = 0; i < grafo->n; i++) {
+        distance[i] = cost[origem][i];
+        pred[i] = origem;
+        visited[i] = 0;
+    }
+    distance[origem] = 0;
+    visited[origem] = 1;
+    count = 1;
+    
+    // Identify edges
+    while (count < (grafo->n - 1)) {
+        mindistance = INFINITO;
+        for (i=0; i < grafo->n; i++)
+            if (distance[i] < mindistance && !visited[i]) {
+                mindistance = distance[i];
+                nextnode = i;
+            }
+
+        visited[nextnode] = 1;
+        for (i = 0; i < grafo->n; i++) {
+            if (!visited[i]) {
+                if ((mindistance + cost[nextnode][i]) < distance[i]) {
+                    distance[i] = (mindistance + cost[nextnode][i]);
+                    pred[i] = nextnode;
                 }
+            }
+        }
         count++;
     }
     
+#if RELEASE
+#else
+    // Debug information
     for (int i = 0; i < grafo->n; i++) {
         printf("%d", pred[i]);
     }
     printf("\n");
+#endif
 
-    //print the path and distance of each node
-    if(destino!=origem)
-    {
-        int tamanho = 0;
+    // Print our path
+    if (origem != destino) {
+        
+        int size = 0;
         int inverse[MAXN];
+        j = destino;
         
-        j=destino;
         do {
-            j=pred[j];
-            tamanho++;
-            inverse[tamanho] = j;
-        }while(j!=origem);
+            j = pred[j];
+            size++;
+            inverse[size] = j;
+        } while (j != origem);
         
-        if (tamanho > 1) {
-            for (j = tamanho; j> 0; j--) {
+        if (size > 1) {
+            for (j = size; j > 0; j--) {
                 printf("%d ", inverse[j]);
             }
-            printf("%d ",destino);
+            printf("%d", destino);
         }
     }
     

@@ -4,7 +4,7 @@
 
 #include "grafo.h"
 
-#define RELEASE 0
+#define RELEASE 1
 
 static void ler_arestas(Grafo *grafo, int m);
 static void ler_comandos(Grafo *grafo);
@@ -82,7 +82,7 @@ void ler_comandos(Grafo *grafo) {
     }
 #else
     algoritmo_dijkstra(grafo, 2, 3);
-//    algoritmo_dijkstra(grafo, 1, 4);
+    algoritmo_dijkstra(grafo, 1, 4);
 #endif
 
 }
