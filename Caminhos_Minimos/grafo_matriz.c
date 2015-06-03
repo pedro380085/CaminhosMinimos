@@ -298,14 +298,19 @@ int algoritmo_prim_m(const GrafoM *grafo) {
 
 int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
     
-    int cost[MAXN][MAXN];
-    int distance[MAXN];
-    int pred[MAXN];
-    int visited[MAXN];
+    int **cost = (int **) malloc(n_vertices_m(grafo) * sizeof(int *));
+    int *distance = (int *) malloc(n_vertices_m(grafo) * sizeof(int));
+    int *pred = (int *) malloc(n_vertices_m(grafo) * sizeof(int));
+    int *visited = (int *) malloc(n_vertices_m(grafo) * sizeof(int));
+    
+    int i,j;
+    for (i = 0; i < n_vertices_m(grafo); ++i) {
+        cost[i] = (int *) malloc(n_vertices_m(grafo) * sizeof(int));
+    }
+    
     int count;
     int mindistance;
     int nextnode = MAXN;
-    int i,j;
     
     // Create our matrix with costs
     for (i = 0; i < grafo->n; i++) {
@@ -378,6 +383,7 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
             }
             printf("%d", destino);
         }
+        printf("\n");
     }
     
     return 1;
