@@ -336,12 +336,15 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
     
     // Identify edges
     while (count < (grafo->n - 1)) {
+        
         // Find minimum distance
         mindistance = INFINITO;
         for (i = 0; i < grafo->n; i++) {
-            if (distance[i] < mindistance && !visited[i]) {
-                mindistance = distance[i];
-                nextnode = i;
+            if (!visited[i]) {
+                if (distance[i] < mindistance) {
+                    mindistance = distance[i];
+                    nextnode = i;
+                }
             }
         }
         
@@ -354,8 +357,9 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
         visited[nextnode] = 1;
         for (i = 0; i < grafo->n; i++) {
             if (!visited[i]) {
-                if ((mindistance + cost[nextnode][i]) < distance[i]) {
-                    distance[i] = (mindistance + cost[nextnode][i]);
+                int alt = (distance[nextnode] + cost[nextnode][i]);
+                if (alt < distance[i]) {
+                    distance[i] = alt;
                     pred[i] = nextnode;
                 }
             }
