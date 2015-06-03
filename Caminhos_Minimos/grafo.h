@@ -170,7 +170,7 @@ int algoritmo_prim(const Grafo *grafo);
  *
  * @param grafo Grafo a ser consultado e processado.
  */
-int algoritmo_dijkstra(const Grafo *grafo, int origem, int destino);
+int* algoritmo_dijkstra(const Grafo *grafo, int origem, int destino);
 
 /**
  * @brief Realiza busca em profundidade a partir do vértice @param u. As callbacks

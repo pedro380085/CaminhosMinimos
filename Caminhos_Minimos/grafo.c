@@ -162,7 +162,7 @@ int algoritmo_prim(const Grafo *grafo) {
     return algoritmo_prim_m(grafo->matriz);
 }
 
-int algoritmo_dijkstra(const Grafo *grafo, int origem, int destino) {
+int* algoritmo_dijkstra(const Grafo *grafo, int origem, int destino) {
     return algoritmo_dijkstra_m(grafo->matriz, origem, destino);
 }
 

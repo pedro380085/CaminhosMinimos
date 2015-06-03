@@ -296,7 +296,7 @@ int algoritmo_prim_m(const GrafoM *grafo) {
     return total;
 }
 
-int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
+int* algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
     
     int **cost = (int **) malloc(n_vertices_m(grafo) * sizeof(int *));
     int *distance = (int *) malloc(n_vertices_m(grafo) * sizeof(int));
@@ -331,8 +331,8 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
         visited[i] = 0;
     }
     distance[origem] = 0;
-    visited[origem] = 1;
-    count = 1;
+//    visited[origem] = 1;
+    count = 0;
     
     // Identify edges
     while (count < (grafo->n - 1)) {
@@ -346,11 +346,6 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
                     nextnode = i;
                 }
             }
-        }
-        
-        // Break if we found our destiny
-        if (distance[nextnode] == INFINITO || nextnode == destino) {
-            break;
         }
 
         // Find a better cost for a given path
@@ -377,30 +372,8 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
     }
     printf("\n");
 #endif
-
-    // Print our path
-    if (origem != destino) {
-        
-        int size = 0;
-        int inverse[MAXN];
-        j = destino;
-        
-        do {
-            j = pred[j];
-            size++;
-            inverse[size] = j;
-        } while (j != origem);
-        
-        if (size > 1) {
-            for (j = size; j > 0; j--) {
-                printf("%d ", inverse[j]);
-            }
-            printf("%d", destino);
-        }
-        printf("\n");
-    }
     
-    return 1;
+    return pred;
 }
 
 #define BRANCO 0

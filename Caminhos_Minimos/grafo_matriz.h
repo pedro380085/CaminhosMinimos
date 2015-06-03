@@ -19,7 +19,7 @@ int cabeca_ordenacao_topologica_m(const GrafoM *grafo);
 int cauda_ordenacao_topologica_m(const GrafoM *grafo);
 void adjacentes_m(const GrafoM *grafo, int u, int *v, int max);
 int algoritmo_prim_m(const GrafoM *grafo);
-int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino);
+int* algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino);
 void busca_em_profundidade_m(const GrafoM *grafo, int s, vertice_fn_m processa_vertice, aresta_fn_m processa_aresta, void *args);
 void ordenacao_topologica_m(const GrafoM *grafo, int s, vertice_fn_m processa_vertice, aresta_fn_m processa_aresta, void *args);
 void busca_em_largura_m(const GrafoM *grafo, int s, vertice_fn_m processa_vertice, aresta_fn_m processa_aresta, void *args);

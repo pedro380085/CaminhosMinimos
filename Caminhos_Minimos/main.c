@@ -8,6 +8,7 @@
 
 static void ler_arestas(Grafo *grafo, int m);
 static void ler_comandos(Grafo *grafo);
+static void imprimir_resultado(Grafo *grafo, int origem, int destino, int * pred);
 
 /**
  * O programa principal receberá sempre um argumento.
@@ -78,11 +79,37 @@ void ler_comandos(Grafo *grafo) {
     int destino;
     
     while (scanf("%d %d", &origem, &destino) != EOF) {
-        algoritmo_dijkstra(grafo, origem, destino);
+        imprimir_resultado(grafo, origem, destino, algoritmo_dijkstra(grafo, origem, destino));
     }
 #else
-    algoritmo_dijkstra(grafo, 0, 1);
-    algoritmo_dijkstra(grafo, 2, 4);
+    imprimir_resultado(grafo, 0, 1, algoritmo_dijkstra(grafo, 0, 1));
+    imprimir_resultado(grafo, 2, 4, algoritmo_dijkstra(grafo, 2, 4));
 #endif
 
+}
+
+void imprimir_resultado(Grafo *grafo, int origem, int destino, int * pred) {
+    
+    // Print our path
+    if (origem != destino) {
+        
+        int j;
+        int size = 0;
+        int *inverse = (int *) malloc(n_vertices(grafo) * sizeof(int));
+        j = destino;
+        
+        do {
+            j = pred[j];
+            size++;
+            inverse[size] = j;
+        } while (j != origem);
+        
+        if (size > 2) {
+            for (j = size; j > 0; j--) {
+                printf("%d ", inverse[j]);
+            }
+            printf("%d", destino);
+        }
+        printf("\n");
+    }
 }
