@@ -28,13 +28,13 @@ int main(int argc, char *argv[])
 
     grafo = criar_grafo(n, 1, MATRIZ_DE_ADJACENCIA);
 #else
-    grafo = criar_grafo(7, 1, MATRIZ_DE_ADJACENCIA);
+    grafo = criar_grafo(5, 1, MATRIZ_DE_ADJACENCIA);
 #endif
 
 #if RELEASE
     ler_arestas(grafo, m);
 #else
-    ler_arestas(grafo, 11);
+    ler_arestas(grafo, 10);
 #endif
     
 #if RELEASE
@@ -54,9 +54,9 @@ void ler_arestas(Grafo *grafo, int m)
 #if RELEASE
     int u, v, p;
 #else
-    int us[11] = {5, 5, 2, 3, 0, 0, 1, 4, 0, 6, 2};
-    int vs[11] = {2, 6, 0, 0, 5, 1, 0, 2, 4, 2, 5};
-    int ps[11] = {105, 86, 713, 603, 362, 479, 671, 10, 979, 536, 217};
+    int us[11] = {3, 1, 4, 2, 3, 4, 2, 1, 3, 2};
+    int vs[11] = {1, 0, 1, 3, 0, 0, 1, 3, 4, 0};
+    int ps[11] = {7056, 6702, 3998, 2283, 3543, 2029, 2190, 5429, 1212, 9648};
 #endif
     
     int i;
@@ -81,8 +81,8 @@ void ler_comandos(Grafo *grafo) {
         algoritmo_dijkstra(grafo, origem, destino);
     }
 #else
-    algoritmo_dijkstra(grafo, 2, 3);
-    algoritmo_dijkstra(grafo, 1, 4);
+    algoritmo_dijkstra(grafo, 0, 1);
+    algoritmo_dijkstra(grafo, 2, 4);
 #endif
 
 }

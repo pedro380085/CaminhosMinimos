@@ -304,13 +304,13 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
     int *visited = (int *) malloc(n_vertices_m(grafo) * sizeof(int));
     
     int i,j;
-    for (i = 0; i < n_vertices_m(grafo); ++i) {
+    for (i = 0; i < n_vertices_m(grafo); i++) {
         cost[i] = (int *) malloc(n_vertices_m(grafo) * sizeof(int));
     }
     
-    int count;
-    int mindistance;
-    int nextnode = MAXN;
+    int count = 0;
+    int mindistance = INFINITO;
+    int nextnode = 0;
     
     // Create our matrix with costs
     for (i = 0; i < grafo->n; i++) {
@@ -336,13 +336,21 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
     
     // Identify edges
     while (count < (grafo->n - 1)) {
+        // Find minimum distance
         mindistance = INFINITO;
-        for (i=0; i < grafo->n; i++)
+        for (i = 0; i < grafo->n; i++) {
             if (distance[i] < mindistance && !visited[i]) {
                 mindistance = distance[i];
                 nextnode = i;
             }
+        }
+        
+        // Break if we found our destiny
+        if (distance[nextnode] == INFINITO || nextnode == destino) {
+            break;
+        }
 
+        // Find a better cost for a given path
         visited[nextnode] = 1;
         for (i = 0; i < grafo->n; i++) {
             if (!visited[i]) {
