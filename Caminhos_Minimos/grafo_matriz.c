@@ -341,7 +341,7 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
         mindistance = INFINITO;
         for (i = 0; i < grafo->n; i++) {
             if (!visited[i]) {
-                if (distance[i] < mindistance) {
+                if (distance[i] <= mindistance) {
                     mindistance = distance[i];
                     nextnode = i;
                 }
@@ -357,10 +357,12 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
         visited[nextnode] = 1;
         for (i = 0; i < grafo->n; i++) {
             if (!visited[i]) {
-                int alt = (distance[nextnode] + cost[nextnode][i]);
-                if (alt < distance[i]) {
-                    distance[i] = alt;
-                    pred[i] = nextnode;
+                if (cost[nextnode][i] != INFINITO) {
+                    int alt = (distance[nextnode] + cost[nextnode][i]);
+                    if (alt < distance[i]) {
+                        distance[i] = alt;
+                        pred[i] = nextnode;
+                    }
                 }
             }
         }
