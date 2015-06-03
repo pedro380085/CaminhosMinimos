@@ -36,7 +36,12 @@ int main(int argc, char *argv[])
 #else
     ler_arestas(grafo, 11);
 #endif
-
+    
+#if RELEASE
+#else
+    imprimir_grafo(grafo);
+#endif
+    
     ler_comandos(grafo);
 
     destruir_grafo(grafo);

@@ -322,18 +322,17 @@ int algoritmo_dijkstra_m(const GrafoM *grafo, int origem, int destino) {
         dist[w0] = mindist;
     }
     
-    printf("\n");
     for (int i = 0; i < grafo->n; i++) {
         printf("%d", parent[i]);
     }
-    printf("\n\n");
+    printf("\n");
     
     for (int i = 0; i < grafo->n; i++) {
         printf("%d", dist[i]);
     }
+    printf("\n\n");
     
     return 1;
-    
 }
 
 #define BRANCO 0
